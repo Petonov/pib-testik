@@ -1,119 +1,59 @@
-<!DOCTYPE html>
-<html lang="sk">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>StudyPage</title>
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'project-white': '#F9f9fd',
-            'project-light-blue': '#e7eefb',
-            'project-dark-blue': '#004A99',
-          }
-        }
-      }
-    }
-  </script>
+<!DOCTYPE html><html lang="sk"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StudyPage</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{'project-white':'#F9f9fd','project-light-blue':'#e7eefb','project-dark-blue':'#004A99'}}}}</script>
 </head>
 
 <body class="bg-white text-project-dark-blue">
-
 <main class="p-10">
 <form id="testForm" class="xl:w-1/2 w-full">
 
 <table class="bg-project-light-blue rounded-md w-full">
-  <thead>
-    <tr>
-      <th class="max-w-12 text-xs">question num</th>
-      <th class="p-2 text-left">question text</th>
-    </tr>
-  </thead>
-
-<tbody>
+<thead><tr><th class="w-10 text-xs text-right pr-3">#</th><th class="p-2 text-left">question text</th></tr></thead>
+<tbody id="questionsBody">
 
 <!-- QUESTION 1 -->
-<tr>
-  <td class="align-top w-8 text-right pr-2 pt-2">
-  <span>1.</span>
-  </td>
-  <td class="py-2 bg-project-white align-top">
-    <pre class="whitespace-pre-wrap">
-A flaw or weakness in system design is a &lt;FILL IN&gt;.
-    </pre>
-
-    <table>
-      <tbody>
-        <tr><th>true</th><th class="px-2">option text</th></tr>
-
-        <tr data-q="0">
-          <td><input type="radio" name="0" value="0"></td>
-          <td>Risk</td>
-        </tr>
-        <tr data-q="0">
-          <td><input type="radio" name="0" value="1"></td>
-          <td>Vulnerability</td>
-        </tr>
-        <tr data-q="0">
-          <td><input type="radio" name="0" value="2"></td>
-          <td>Countermeasure</td>
-        </tr>
-      </tbody>
-    </table>
-  </td>
+<tr class="question-block" data-q="0">
+<td class="align-top w-10 text-right pr-3 pt-4">1.</td>
+<td class="question-body py-4 bg-project-white align-top relative">
+<div class="flex justify-end mb-1">
+<button type="button" class="flag-btn text-gray-400 text-sm select-none" data-q="0">⭐ Mark as problematic</button>
+</div>
+<pre class="whitespace-pre-wrap">A flaw or weakness in system design is a &lt;FILL IN&gt;.</pre>
+<table><tbody>
+<tr><th>true</th><th class="px-2">option text</th></tr>
+<tr><td><input type="radio" name="0" value="0"></td><td>Risk</td></tr>
+<tr><td><input type="radio" name="0" value="1"></td><td>Vulnerability</td></tr>
+<tr><td><input type="radio" name="0" value="2"></td><td>Countermeasure</td></tr>
+</tbody></table>
+</td>
 </tr>
 
 <!-- QUESTION 2 -->
-<tr>
-  <td class="align-top w-8 text-right pr-2 pt-2">
-  <span>2.</span>
-  </td>
-  <td class="py-2 bg-project-white align-top">
-    <pre class="whitespace-pre-wrap">
-Describe advantages and disadvantages of Kerberos.
-    </pre>
-
-    <textarea
-      name="1"
-      rows="4"
-      class="w-full rounded-lg ring-2 ring-project-dark-blue p-2"
-    ></textarea>
-
-    <div class="mt-2 text-sm" id="ai-feedback-1"></div> <!--musi sediet s name="1"-->
-  </td>
+<tr class="question-block" data-q="1">
+<td class="align-top w-10 text-right pr-3 pt-4">2.</td>
+<td class="question-body py-4 bg-project-white align-top relative">
+<div class="flex justify-end mb-1">
+<button type="button" class="flag-btn text-gray-400 text-sm select-none" data-q="1">⭐ Mark as problematic</button>
+</div>
+<pre class="whitespace-pre-wrap">Describe advantages and disadvantages of Kerberos.</pre>
+<textarea name="1" rows="4" class="w-full rounded-lg ring-2 ring-project-dark-blue p-2"></textarea>
+</td>
 </tr>
 
 </tbody>
 </table>
 
-<button id="submitBtn"
-  class="mt-5 border border-black px-4 py-2 rounded-md">
-  Submit Test
-</button>
-
-<button id="evaluateOpenBtn"
-  type="button"
-  class="mt-5 ml-3 border border-black px-4 py-2 rounded-md">
-  Evaluate open answers
-</button>
-
-
-<button id="showAnswersBtn"
-  type="button"
-  class="mt-5 ml-3 border border-black px-4 py-2 rounded-md">
-  Display all answers
-</button>
-
+<div class="mt-6 flex flex-wrap gap-3">
+<button id="submitBtn" class="border border-black px-4 py-2 rounded-md">Submit Test</button>
+<button id="showAnswersBtn" class="border border-black px-4 py-2 rounded-md">Display all answers</button>
+<button id="toggleOrderBtn" class="border border-black px-4 py-2 rounded-md">Random order</button>
+</div>
 
 <div id="result" class="mt-4 font-bold"></div>
 
 </form>
 </main>
-
-<script type="module" src="evaluator.js"></script>
-</body>
-</html>
+<script src="evaluator.js"></script>
+</body></html>
