@@ -1,4 +1,5 @@
 console.log("EVALUATOR.JS LOADED");
+document.addEventListener("DOMContentLoaded", () => {
 // =======================================================
 // CONFIG
 // =======================================================
@@ -210,3 +211,4 @@ Return ONLY valid JSON:
 
   return JSON.parse(match[0]);
 }
+});
