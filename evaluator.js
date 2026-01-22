@@ -1,3 +1,4 @@
+console.log("EVALUATOR.JS LOADED");
 // =======================================================
 // CONFIG
 // =======================================================
@@ -119,6 +120,7 @@ function showAllAnswers() {
 async function evaluateOpenAnswers() {
   let gainedPoints = 0;
   let maxPoints = 0;
+  console.log("evaluateOpenAnswers CALLED");
 
   for (const qid of Object.keys(aiRubric)) {
     const textarea = document.querySelector(`textarea[name="${qid}"]`);
@@ -161,6 +163,7 @@ async function evaluateOpenAnswers() {
 
 async function evaluateWithGemini(questionId, studentAnswer) {
   const rubric = aiRubric[questionId];
+  console.log("evaluateWithGemini CALLED", questionId);
 
   const prompt = `
 You are an exam evaluator.
