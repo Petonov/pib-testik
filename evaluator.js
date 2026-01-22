@@ -194,6 +194,7 @@ Return ONLY valid JSON:
   }
 
   const data = await response.json();
+  console.log("RAW BACKEND RESPONSE:", data);
 
   const text =
     data.candidates?.[0]?.content?.parts?.[0]?.text;
