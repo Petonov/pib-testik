@@ -189,7 +189,8 @@ Return ONLY valid JSON:
   );
 
   if (!response.ok) {
-    throw new Error("Backend error");
+    const errText = await response.text();
+    throw new Error("Backend error: " + errText);
   }
 
   const data = await response.json();
@@ -198,7 +199,10 @@ Return ONLY valid JSON:
     data.candidates?.[0]?.content?.parts?.[0]?.text;
 
   const match = text?.match(/\{[\s\S]*\}/);
-  if (!match) throw new Error("Invalid AI output");
+  if (!match) {
+    console.error("Raw Gemini output:", text);
+    throw new Error("Invalid AI output");
+  }
 
   return JSON.parse(match[0]);
 }
