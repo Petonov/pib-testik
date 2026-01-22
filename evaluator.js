@@ -180,7 +180,7 @@ Return ONLY valid JSON:
 `;
 
   const response = await fetch(
-    "https://pib-ai-backend.onrender.com",
+    "https://pib-ai-backend.onrender.com/grade",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
