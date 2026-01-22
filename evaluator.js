@@ -1,92 +1,96 @@
-// ===== ANSWERS =====
-const correctAnswers={
-0:1,
-1:1,
-2:1,
-3:0,
-4:3,
-5:2,
-6:1,
-7:2,
-8:2,
-9:1,
-10:0,
-11:3,
-12:0,
-13:0,
-14:3,
-15:2,
-16:3,
-17:3,
-18:3,
-19:3,
-20:2,
-21:1,
-22:0,
-23:3,
-24:1,
-25:1,
-26:2,
-27:0,
-28:1,
-29:2,
-30:0,
-31:3,
-32:2,
-33:1,
-34:3,
-35:1,
-36:0,
-37:0,
-38:0,
-39:2,
-40:1,
-41:0,
-42:2,
-43:3,
-44:2,
-45:1,
-46:1,
-47:1,
-48:0,
-49:0,
-50:3,
-51:0,
-52:2,
-53:1,
-54:2,
-55:2,
-56:0,
-57:2,
-58:0,
-59:1,
-60:0,
-61:2,
-62:2,
-63:2,
-64:1,
-65:0,
-66:2,
-67:1,
-68:1,
-69:1,
-70:1,
-71:1,
-72:1,
-73:1,
-74:1,
-75:1,
-76:3,
-77:0,
-78:2,
-79:"Digital envelope = symmetric encryption of message + asymmetric encryption of key",
-80:"Bloom filter: probabilistic set membership, fast, false positives",
-81:"Bell-LaPadula confidentiality vs Biba integrity",
-82:"Clark-Wilson: CDI, UDI, TP, IVP",
-83:"Kerberos pros/cons, tickets, time sync",
-84:"Strong vs weak hash properties"
-};
+const toggleOrderBtn=document.getElementById("toggleOrderBtn");
+const submitBtn=document.getElementById("submitBtn");
+const showAnswersBtn=document.getElementById("showAnswersBtn");
+const result=document.getElementById("result");
 
+// ===== ANSWERS =====
+const correctAnswers = {
+  0: 2,  // Confidentiality (Dôvernosť)
+  1: 1,  // Role
+  2: 0,  // Issuer
+  3: 0,  // Authentication
+  4: 0,  // Denial of service
+  5: 1,  // CTR – Counter
+  6: 0,  // Constraints
+  7: 1,  // Vulnerability
+  8: 2,  // Access management
+  9: 1,  // Password cracker
+  10: 2, // Message authentication
+  11: 1, // AES
+  12: 1, // Client attack
+  13: 2, // DAC
+  14: 3, // MAC
+  15: 1, // Data at rest
+  16: 3, // Security attack
+  17: 3, // Static biometrics
+  18: 3, // Access control
+  19: 0, // Digital envelope: symmetric key + Bob’s public key
+  20: 1, // Public-key encryption
+  21: 3, // Strong hash function ==== OTAZKA 22
+  22: 1, // Any circumstance with potential adverse impact
+  23: 1, // Use longer keys
+  24: 0, // Countermeasure
+  25: 0, // Authorization
+  26: 1, // High
+  27: 2, // Facial characteristics
+  28: 3, // Hash function
+  29: 0, // Mandatory access control
+  30: 1, // Replay attack
+  31: 1, // Data integrity
+  32: 0, // Attack
+  33: 2, // Fraud
+  34: 0, // Control right in A[S0,S] or owner right in A[S0,X]
+  35: 2, // Node attack
+  36: 0, // User education
+  37: 3, // e·d = 1 mod (p−1)(q−1)
+  38: 0, // Cardinality
+  39: 0, // Digital signature
+  40: 3, // Discrete logarithm computation
+  41: 0, // Registered
+  42: 2, // Traffic padding
+  43: 2, // Unauthorized user successfully authenticated
+  44: 1, // Brute-force attack
+  45: 3, // EFT
+  46: 0, // Hand geometry
+  47: 2, // RBAC
+  48: 3, // Encrypt with Bob’s public key
+  49: 0, // Verification step
+  50: 3, // Masquerade
+  51: 0, // Object
+  52: 2, // Challenge–response
+  53: 1, // Privacy
+  54: 2, // Reactive password checking == OTAZKA 55
+  55: 2, // RSA
+  56: 2, // System integrity
+  57: 2, // Exposure
+  58: 3, // Subject
+  59: 1, // Passive attack
+  60: 1,  // ABAC
+  61: 2,  // Confidentiality == OTAZKA 62, ODTIALTO SU NOVE
+  62: 2,  // Previous encrypted block XOR current decrypted block
+  63: 1,  // Only the file owner can delete or rename files in a directory
+  64: 0,  // Owner: read+write, Group: read, Others: read
+  65: 2,  // Collision resistance
+  66: 1,  // Message encrypted symmetrically, key encrypted asymmetrically
+  67: 1,  // Preventing incidents before they occur
+  68: 1,  // Efficient password blacklist checking
+  69: 1,  // Trojan horse
+  70: 1,  // Single sign-on using tickets
+  71: 1,  // Permissions per object
+  72: 1,  // Credential management
+  73: 1,  // No read up
+  74: 1,  // No write up
+  75: 3,  // ACL
+  76: 0,  // Conflict of interest
+  77: 2,  // Complete mediation
+  78: 2,   // (g^b mod p)^a mod p
+  79: "A digital envelope is a hybrid cryptographic mechanism combining symmetric and asymmetric encryption. The sender generates a random symmetric key, encrypts the message with this key, and then encrypts the symmetric key using the recipient’s public key. The recipient opens the envelope by decrypting the symmetric key with their private key and then decrypting the message using the recovered symmetric key.",
+  80: "A Bloom filter is a probabilistic data structure used for fast set membership testing. It uses multiple hash functions to map elements to a bit array. It is space-efficient and very fast but allows false positives while never producing false negatives. Elements cannot be removed without introducing errors.",
+  81: "Bell-LaPadula is a confidentiality model enforcing no read up and no write down, protecting sensitive information from disclosure. Biba is an integrity model enforcing no read down and no write up, protecting data from corruption. Bell-LaPadula focuses on confidentiality, while Biba focuses on integrity.",
+  82: "The Clark-Wilson integrity model enforces integrity through well-formed transactions. Its components include Constrained Data Items (CDI), Unconstrained Data Items (UDI), Transformation Procedures (TP), and Integrity Verification Procedures (IVP). It emphasizes separation of duties and controlled data modification.",
+  83: "Kerberos provides centralized authentication and single sign-on using tickets and symmetric cryptography. Its advantages include strong authentication and reduced password exposure. Disadvantages include reliance on time synchronization, a single point of failure in the Key Distribution Center, and initial configuration complexity.",
+  84: "A strong hash function provides preimage resistance, second preimage resistance, and collision resistance. A weak hash function lacks collision resistance and is vulnerable to attacks. Strong hash functions are suitable for security applications, while weak ones are not."
+};
 
 // ===== PROBLEMATIC =====
 const PROB_KEY="problematicQuestions";
