@@ -1,3 +1,4 @@
+alert("JS LOADED");
 console.log("EVALUATOR.JS LOADED");
 document.addEventListener("DOMContentLoaded", () => {
 // =======================================================
