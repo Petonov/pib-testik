@@ -165,8 +165,6 @@ async function evaluateWithGemini(questionId, studentAnswer) {
   const prompt = `
 You are an exam evaluator.
 
-Grade the student's answer strictly but fairly.
-
 LECTURE NOTES:
 ${rubric.notes}
 
@@ -182,43 +180,25 @@ Return ONLY valid JSON:
 `;
 
   const response = await fetch(
-    "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=AIzaSyBUpjVqPeX9I8s-z7VN39qABNe59rlzXdo",
+    "https://pib-ai-backend.onrender.com",
     {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [{ text: prompt }]
-          }
-        ]
-      })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt })
     }
   );
 
   if (!response.ok) {
-    const errText = await response.text();
-    console.error("Gemini HTTP error:", response.status, errText);
-    throw new Error("Gemini HTTP error " + response.status);
+    throw new Error("Backend error");
   }
 
   const data = await response.json();
+
   const text =
     data.candidates?.[0]?.content?.parts?.[0]?.text;
 
-  if (!text) {
-    console.error("Invalid Gemini response:", data);
-    throw new Error("Invalid Gemini response");
-  }
-
-  // Gemini občas vráti text okolo JSON → vyrežeme ho
-  const match = text.match(/\{[\s\S]*\}/);
-  if (!match) {
-    console.error("No JSON in Gemini output:", text);
-    throw new Error("No JSON returned by Gemini");
-  }
+  const match = text?.match(/\{[\s\S]*\}/);
+  if (!match) throw new Error("Invalid AI output");
 
   return JSON.parse(match[0]);
 }
